@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+header {
+  display: flex;
+  place-content: center;
+  background-color: lightgreen;
+}
+
+div {
+  background-color: lightcoral;
+}
+
+div img {
+  background-color: lightblue;
+}
