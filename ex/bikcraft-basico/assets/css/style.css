@@ -56,7 +56,6 @@ p {
   border-radius: 4px;
   color: black;
   border: 2px solid transparent;
-
 }
 
 .menu a:hover {
@@ -92,6 +91,11 @@ p {
   width: 60px;
   height: 4px;
   background-color: var(--cor-destaque);
+}
+
+.intro-cover img {
+  object-fit: cover;
+  height: 100%;
 }
 
 .botao {
@@ -154,4 +158,41 @@ footer {
   width: 100%;
   background-color: white;
   box-sizing: border-box;
+}
+
+@media (max-width: 1000px) {
+  .grid-vantagem {
+    grid-template-columns: 1fr;
+  }
+  .subtitulo {
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    gap: 30px;
+    margin-top: 20px;
+  }
+
+  .header {
+    gap: 30px;
+  }
+  
+  .conteudo {
+    grid-template-columns: 1fr;
+  }
+
+  .intro {
+    text-align: left;
+    justify-items: start;
+  }
+
+  .intro::before {
+    display: none;
+  }
+
+  .subtitulo {
+    font-size: 2.5rem;
+  }
 }
