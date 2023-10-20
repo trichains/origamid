@@ -16,7 +16,7 @@ linkInterno.forEach((link) => {
 // ao clique mostre exatamente quais elementos estão sendo clicados
 const elementos = document.querySelectorAll('body *');
 
-function handleElemento(e) {
+function handleElemento() {
   this.remove();
 }
 
@@ -31,7 +31,7 @@ elementos.forEach((elemento) => {
 
 function handleKeyT(e) {
   if (e.key === 't') {
-    document.documentElement.classList.toggle('textomaior')
+    document.documentElement.classList.toggle('textomaior');
   }
 }
 
