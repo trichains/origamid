@@ -31,8 +31,8 @@ const handleStyle = {
   },
   fontSize(value) {
     this.element.style.fontSize = value + 'rem';
-  },
-}
+  }
+};
 
 function handleChange(event) {
   const name = event.target.name;
@@ -49,7 +49,7 @@ function saveValues(name, value) {
 
 function setValues() {
   const properties = Object.keys(localStorage);
-  properties.forEach(propertie => {
+  properties.forEach((propertie) => {
     handleStyle[propertie](localStorage[propertie]);
     controles.elements[propertie].value = localStorage[propertie];
   });
@@ -59,5 +59,5 @@ function setValues() {
 setValues();
 
 function showCss() {
-  cssText.innerHTML = '<span>' + btn.style.cssText.split('; ').join(';</span><span>');
+  cssText.innerHTML = btn.style.cssText.split('; ').join('<br>');
 }
