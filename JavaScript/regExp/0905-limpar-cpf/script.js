@@ -1,28 +1,26 @@
 const cpfsList = document.querySelectorAll('.cpf li');
 
 const elementsInnerText = ([...elements]) => {
-  return elements.map(element => element.innerText);
-}
+  return elements.map((element) => element.innerText);
+};
 
-const limparCPF = (cpf) => {
+const clearCpf = (cpf) => {
   return cpf.replace(/\D/g, '');
-}
+};
 
 const construirCPF = (cpf) => {
   return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, '$1.$2.$3-$4');
-}
+};
 
-const formatarCPFS = (cpfs) => {
-  return cpfs.map(limparCPF).map(construirCPF);
-}
+const formatarCpfs = (cpfs) => cpfs.map((cpf) => construirCPF(clearCpf(cpf)));
 
-const substituiCPFS = (cpfsElements) => {
+const substituiCpfs = (cpfsElements) => {
   const cpfs = elementsInnerText(cpfsElements);
-  const cpfsFormatados = formatarCPFS(cpfs);
-
+  const cpfsFormatados = formatarCpfs(cpfs);
   cpfsElements.forEach((element, index) => {
     element.innerText = cpfsFormatados[index];
-  })
-}
+  });
+  console.log(cpfsFormatados);
+};
 
-substituiCPFS(cpfsList);
+substituiCpfs(cpfsList);
