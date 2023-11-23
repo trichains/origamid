@@ -1,18 +1,18 @@
 import ValidarCpf from './validar-cpf.js';
 
-const cpf = new ValidarCpf();
+const cpfValidator = new ValidarCpf();
 
 const form = document.querySelector('form');
 
 form.addEventListener('submit', handleSubmit);
 
-function handleSubmit(e) {
-  e.preventDefault();
+function handleSubmit(event) {
+  event.preventDefault();
 
   const cpfInput = document.querySelector('#cpf');
   const cpfValue = cpfInput.value;
 
-  if (cpf.validar(cpfValue)) {
+  if (cpfValidator.validar(cpfValue)) {
     showAlert('CPF válido');
   } else {
     showAlert('CPF inválido');
@@ -22,12 +22,3 @@ function handleSubmit(e) {
 function showAlert(message) {
   alert(message);
 }
-
-// const cpf = document.querySelector('#cpf');
-// const validarCpf = new ValidarCpf(cpf).iniciar();
-
-// const validadorCPF = new ValidarCpf();
-
-// console.log(validadorCPF.validar('111 111 111 222'))
-
-// console.log(validarCpf)

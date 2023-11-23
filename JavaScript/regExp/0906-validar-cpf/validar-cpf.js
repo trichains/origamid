@@ -1,45 +1,57 @@
 export default class ValidarCpf {
   constructor(element) {
     this.element = element;
+    this.erroElement = null;
+    this.cpfElement = null;
+    this.validoClass = 'valido';
+    this.erroClass = 'erro';
   }
+
   limpar(cpf) {
-    return cpf.replace(/\D/g, '');
+    return cpf.replace(/\D+/g, '');
   }
-  construir(cpf) {
-    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, '$1.$2.$3-$4');
-  }
+
   formatar(cpf) {
     const cpfLimpo = this.limpar(cpf);
-    return this.construir(cpfLimpo);
+    return cpfLimpo.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, '$1.$2.$3-$4');
   }
+
   validar(cpf) {
-    const matchCpf = cpf.match(/(?:\d{3}[-.\s]?){3}\d{2}/g);
-    return (matchCpf && matchCpf[0] === cpf);
+    return /^\d{3}([-.\s]?\d{3}){3}[-.\s]?\d{2}$/.test(cpf);
   }
-  validarNaMudanca(cpfElement) {
-    if(this.validar(cpfElement.value)) {
-      cpfElement.value = this.formatar(cpfElement.value);
-      cpfElement.classList.add('valido');
-      cpfElement.classList.remove('erro');
-      cpfElement.nextElementSibling.classList.remove('ativar');
+
+  validarNaMudanca(event) {
+    const cpfElement = event.target;
+    const cpf = cpfElement.value;
+    if (this.validar(cpf)) {
+      cpfElement.value = this.formatar(cpf);
+      cpfElement.classList.toggle(this.validoClass, true);
+      cpfElement.classList.toggle(this.erroClass, false);
+      this.erroElement.classList.toggle('ativar', false);
     } else {
-      cpfElement.classList.add('erro');
-      cpfElement.classList.remove('valido');
-      cpfElement.nextElementSibling.classList.add('ativar');
+      cpfElement.classList.toggle(this.validoClass, false);
+      cpfElement.classList.toggle(this.erroClass, true);
+      this.erroElement.classList.toggle('ativar', true);
     }
   }
+
   adicionarEvento() {
-    this.element.addEventListener('change', () => {
-      this.validarNaMudanca(this.element);
-    })
+    this.element.addEventListener('change', (event) => {
+      if (event.target === this.cpfElement) {
+        this.validarNaMudanca(event);
+      }
+    });
   }
+
   adicionarErroSpan() {
-    const erroElement = document.createElement('span');
-    erroElement.classList.add('erro-text');
-    erroElement.innerText = 'CPF Inválido';
-    this.element.parentElement.insertBefore(erroElement, this.element.nextElementSibling);
+    this.erroElement = document.createElement('span');
+    this.erroElement.classList.add('erro-text');
+    this.erroElement.innerText = 'CPF Inválido';
+    this.element.parentElement.insertBefore(this.erroElement, this.element.nextElementSibling);
   }
+
   iniciar() {
+    this.cpfElement = this.element;
     this.adicionarEvento();
     this.adicionarErroSpan();
     return this;
